@@ -1,3 +1,4 @@
+require 'date'
 
 class Task < Post
 
@@ -8,8 +9,18 @@ class Task < Post
   end
 
   def read_from_console
+    puts 'Что надо сделать ?'
+    @text = STDIN.gets.chomp
+    puts 'К каому числу? Укажите в формате ДД.ММ.ГГГГ. например 12.05.2003'
+    input = STDIN.gets.chomp
+
+    @due_date = Date.parse(input)
   end
 
-  def to_string
+  def to_strings
+    deadline = "Крайний срок: #{@due_date.strftime('%Y.%m.%d')}"
+    time_string = "Создано: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')} \n"
+
+    [deadline, @text, time_string]
   end
 end
